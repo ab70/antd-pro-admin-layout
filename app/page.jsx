@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import defaultProps from './defaultProps';
+
 
 import {
   CaretDownFilled,
@@ -30,235 +30,12 @@ import {
   theme,
 } from 'antd';
 import Tables from './table';
+import Item from './layoutComponents/item'
+import List  from './layoutComponents/list';
+import MenuCard from './layoutComponents/menuCard';
+import SearchInput from './layoutComponents/searchInput';
+import routesList from './routesList';
 
-const Item = (props) => {
-  const { token } = theme.useToken();
-  return (
-    <div
-      className={css`
-        color: ${token.colorTextSecondary};
-        font-size: 14px;
-        cursor: pointer;
-        line-height: 22px;
-        margin-bottom: 8px;
-        &:hover {
-          color: ${token.colorPrimary};
-        }
-      `}
-      style={{
-        width: '33.33%',
-      }}
-    >
-      {props.children}
-      <DoubleRightOutlined
-        style={{
-          marginInlineStart: 4,
-        }}
-      />
-    </div>
-  );
-};
-
-const List = (props) => {
-  const { token } = theme.useToken();
-
-  return (
-    <div
-      style={{
-        width: '100%',
-        ...props.style,
-      }}
-    >
-      <div
-        style={{
-          fontSize: 16,
-          color: token.colorTextHeading,
-          lineHeight: '24px',
-          fontWeight: 500,
-          marginBlockEnd: 16,
-        }}
-      >
-        {props.title}
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-        }}
-      >
-        {new Array(6).fill(1).map((_, index) => {
-          return <Item key={index}>Ghindex-{index}</Item>;
-        })}
-      </div>
-    </div>
-  );
-};
-
-const MenuCard = () => {
-  const { token } = theme.useToken();
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      <Divider
-        style={{
-          height: '1.5em',
-        }}
-        type="vertical"
-      />
-      <Popover
-        placement="bottom"
-        overlayStyle={{
-          width: 'calc(100vw - 24px)',
-          padding: '24px',
-          paddingTop: 8,
-          height: '307px',
-          borderRadius: '0 0 6px 6px',
-        }}
-        content={
-          <div style={{ display: 'flex', padding: '32px 40px' }}>
-            <div style={{ flex: 1 }}>
-              <List title="List title" />
-              <List
-                title="Title"
-                style={{
-                  marginBlockStart: 32,
-                }}
-              />
-            </div>
-
-            <div
-              style={{
-                width: '308px',
-                borderInlineStart: '1px solid ' + token.colorBorder,
-                paddingInlineStart: 16,
-              }}
-            >
-              <div
-                className={css`
-                  font-size: 14px;
-                  color: ${token.colorText};
-                  line-height: 22px;
-                `}
-              >
-                热门产品
-              </div>
-              {new Array(3).fill(1).map((name, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={css`
-                      border-radius: 4px;
-                      padding: 16px;
-                      margin-top: 4px;
-                      display: flex;
-                      cursor: pointer;
-                      &:hover {
-                        background-color: ${token.colorBgTextHover};
-                      }
-                    `}
-                  >
-                    <img src="https://gw.alipayobjects.com/zos/antfincdn/6FTGmLLmN/bianzu%25252013.svg" />
-                    <div
-                      style={{
-                        marginInlineStart: 14,
-                      }}
-                    >
-                      <div
-                        className={css`
-                          font-size: 14px;
-                          color: ${token.colorText};
-                          line-height: 22px;
-                        `}
-                      >
-                        Ant Design
-                      </div>
-                      <div
-                        className={css`
-                          font-size: 12px;
-                          color: ${token.colorTextSecondary};
-                          line-height: 20px;
-                        `}
-                      >
-                        杭州市较知名的 UI 设计语言
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        }
-      >
-        <div
-          style={{
-            color: token.colorTextHeading,
-            fontWeight: 500,
-            cursor: 'pointer',
-            display: 'flex',
-            gap: 4,
-            paddingInlineStart: 8,
-            paddingInlineEnd: 12,
-            alignItems: 'center',
-          }}
-          className={css`
-            &:hover {
-              background-color: ${token.colorBgTextHover};
-            }
-          `}
-        >
-          <span> CaretDown</span>
-          <CaretDownFilled />
-        </div>
-      </Popover>
-    </div>
-  );
-};
-
-const SearchInput = () => {
-  const { token } = theme.useToken();
-  return (
-    <div
-      key="SearchOutlined"
-      aria-hidden
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginInlineEnd: 24,
-      }}
-      onMouseDown={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-      }}
-    >
-      <Input
-        style={{
-          borderRadius: 4,
-          marginInlineEnd: 12,
-          backgroundColor: token.colorBgTextHover,
-        }}
-        prefix={
-          <SearchOutlined
-            style={{
-              color: token.colorTextLightSolid,
-            }}
-          />
-        }
-        placeholder=""
-        bordered={false}
-      />
-      <PlusCircleFilled
-        style={{
-          color: token.colorPrimary,
-          fontSize: 24,
-        }}
-      />
-    </div>
-  );
-};
 
 const MyComponent = () => {
   const [settings, setSetting] = useState({
@@ -267,10 +44,10 @@ const MyComponent = () => {
     splitMenus: true,
   });
 
-  const [pathname, setPathname] = useState('/list/sub-page/sub-sub-page1');
+  const [pathname, setPathname] = useState('/admin/dashboard');
   const [num, setNum] = useState(40);
   if (typeof document === 'undefined') {
-    return <div />;
+    return <></>;
   }
   return (
     <div
@@ -308,7 +85,7 @@ const MyComponent = () => {
                 width: '331px',
               },
             ]}
-            {...defaultProps}
+            {...routesList}
             location={{
               pathname,
             }}
@@ -324,16 +101,17 @@ const MyComponent = () => {
             avatarProps={{
               src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
               size: 'small',
-              title: '七妮妮',
+              title: 'Profile',
               render: (props, dom) => {
                 return (
                   <Dropdown
+                  trigger={["hover", "click"]}
                     menu={{
                       items: [
                         {
                           key: 'logout',
                           icon: <LogoutOutlined />,
-                          label: '退出登录',
+                          label: 'logout',
                         },
                       ],
                     }}
@@ -387,8 +165,8 @@ const MyComponent = () => {
                     paddingBlockStart: 12,
                   }}
                 >
-                  <div>© 2021 Made with lovee</div>
-                  <div>by Ant Design</div>
+                  <div>© 2023 Made with lovee</div>
+                  <div>by Ant & Ab</div>
                 </div>
               );
             }}
@@ -441,7 +219,7 @@ const MyComponent = () => {
               </ProCard>
             </PageContainer>
 
-            {/* <SettingDrawer
+            <SettingDrawer
               pathname={pathname}
               enableDarkTheme
               getContainer={(e) => {
@@ -453,7 +231,7 @@ const MyComponent = () => {
                 setSetting(changeSetting);
               }}
               disableUrlParams={false}
-            /> */}
+            />
           </ProLayout>
         </ConfigProvider>
       </ProConfigProvider>
